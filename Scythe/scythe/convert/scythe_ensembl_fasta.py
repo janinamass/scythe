@@ -178,8 +178,8 @@ def usage():
     usage: scythe_ensembl_fasta.py -s species1,species2 -r INT
 
     options:
-    -s, --species STR   comma-separated list of species (eg 'homo_sapiens,gorilla_gorilla')
-    -r, --release NUM   ENSEMBL version (eg '75')
+    -s, --species=STR   comma-separated list of species (eg 'homo_sapiens,gorilla_gorilla')
+    -r, --release=NUM   ENSEMBL version (eg '75')
     -d, --dir DIR       output directory [default ./]
     -h, --help          prints this
     """)
