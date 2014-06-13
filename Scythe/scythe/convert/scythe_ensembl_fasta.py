@@ -1,9 +1,42 @@
+#!/usr/bin/env python
+
 import httplib2
 import sys
 import os
 from ftplib import FTP
 import gzip
-from helpers.fastahelper import FastaParser
+import getopt
+
+class FastaParser(object):
+    def read_fasta(self, fasta, delim = None, asID = 0):
+        """read from fasta fasta file 'fasta'
+        and split sequence id at 'delim' (if set)\n
+        example:\n
+        >idpart1|idpart2\n
+        ATGTGA\n
+        and 'delim="|"' returns ("idpart1", "ATGTGA")
+        """
+        name = ""
+        fasta = open(fasta, "r")
+        while True:
+            line = name or fasta.readline()
+            if not line:
+                break
+            seq = []
+            while True:
+                name = fasta.readline()
+                name = name.rstrip()
+                if not name or name.startswith(">"):
+                    break
+                else:
+                    seq.append(name)
+            joinedSeq = "".join(seq)
+            line = line[1:]
+            if delim:
+                line = line.split(delim)[asID]
+            yield (line.rstrip(), joinedSeq.rstrip())
+        fasta.close()
+
 
 def getSequencesFromFTP(outdir, release, specieslist=[]):
     path=outdir+os.sep+"fa"
@@ -136,5 +169,48 @@ def prepareLocFromFasta(fasta, outpath, specname):
     print("done")
 #######################
 
-if __name__ == "__main__":
+
+
+def usage():
+    """Usage"""
+    print("""
+
+    usage: scythe_ensembl_fasta.py -s species1,species2 -r INT
+
+    options:
+    -s, --species STR   comma-separated list of species (eg 'homo_sapiens,gorilla_gorilla')
+    -r, --release NUM   ENSEMBL version (eg '75')
+    -d, --dir DIR       output directory [default ./]
+    -h, --help          prints this
+    """)
+    sys.exit(2)
+
+def main():
+    specList = None
+    release = None
+    outdir = "./"
+    try:
+        opts, args = getopt.gnu_getopt(sys.argv[1:], "s:r:h",["species=","release=","help"])
+    except getopt.GetoptError as err:
+        sys.stderr.write(str(err))
+        usage()
+    for o, a in opts:
+        if o in ("-s", "--species"):
+            specList = a.split(",")
+        elif o in ("-r", "--release"):
+            release = int(a)
+        elif o in ("-h", "--help"):
+            usage()
+        else:
+            assert False, "unhandled option"
+
+    if not (specList):
+        usage()
+    if not release:
+        usage()
+
+    getSequencesFromFTP(outdir=outdir, release=[release], specieslist=specList)
+
+if __name__=="__main__":
     main()
+
