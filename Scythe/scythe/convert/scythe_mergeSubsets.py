@@ -4,15 +4,13 @@ import re,sys, getopt
 
 def usage():
     print ("""
-    #####################################################
-    #  rmSubSetsFromGrp.py -g groups.grp -o new.grp -r  #
-    #####################################################
+    usage:  scythe_mergeSubsets.py -g groups.grp -o new.grp
 
     options:
     -g, --grp=FILE.grp
-    -o, --output=OUTFILE.grp output file [default: FILE.allspec.grp]
-    [-r, --rename discard old orthogroup ids and start numbering from 0]
-    -h, --help         prints this
+    -o, --output=OUTFILE.grp    output file [default: FILE.allspec.grp]
+    [-r, --rename               discard old orthogroup ids and start numbering from 0]
+    -h, --help                  prints this
     [-n, --numspec=N    min number of species ]
     ------------
     .grp format: GroupID\tgeneIDiSp1\tgeneIDjSp2\t...geneIDkSpn
