@@ -51,6 +51,7 @@ run ::
 
 See also :ref:`grp_format`.
 
+.. _ensembldl:
 
 Downloading from ENSEMBL without the GUI
 =====================================
@@ -70,7 +71,7 @@ scythe_ensembl_ortho_mysql
 
 
 Manual merge of tab-separated files  to one  `.grp` file
-======================================================
+--------------------------------------------------------
 If you have pairwise (two-species) files ready and want to
 merge them into a multi-species `.grp` file you can do so via the 
 `scythe_ensembl2grp`  and `scythe_mergeSubsets` scripts.
