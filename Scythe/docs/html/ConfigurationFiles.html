@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuration Files &mdash; Scythe 0.1a1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Scythe 0.1a1 documentation" href="index.html" />
+    <link rel="prev" title="Converters" href="Converters.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Converters.html" title="Converters"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configuration-files">
+<span id="configurationfiles"></span><h1>Configuration Files<a class="headerlink" href="#configuration-files" title="Permalink to this headline">¶</a></h1>
+<p>The configuration files allow you save/restore your settings.</p>
+<div class="section" id="example-file">
+<h2>Example file<a class="headerlink" href="#example-file" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>[Mode]
+use_ensembl=yes
+use_local_files=no
+
+[Paths]
+fasta_directory=/home/$USER/mydir/fa/
+loc_directory=/home/$USER/mydir/loc/
+grp_file=/home/$USER/mydir/mydir/test.shared_by_all.grp
+output_directory=/home/$USER/mydir/ref_out/
+
+[Cleanup]
+clean_up_directories=yes
+
+[Run_options]
+num_CPU=1
+
+[Penalties]
+gap_open_cost=10
+gap_extend_cost=0.5
+substitution_matrix=EBLOSUM62
+
+[Algorithm]
+use_sl_glob=unset
+use_sl_ref=yes
+use_mx_sum=unset
+
+[Fasta_header]
+fasta_header_delimiter=&quot; &quot;
+fasta_header_part=0
+</pre></div>
+</div>
+</div>
+<div class="section" id="fasta-header">
+<h2>[Fasta_header]<a class="headerlink" href="#fasta-header" title="Permalink to this headline">¶</a></h2>
+<p>In case the ids in your <cite>loc</cite> file are truncated or your fasta headers carry information in addition to the sequence identifier, you can define where to split the fasta header.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt;other:xyz_sequenceID_length:123_species:x
+MYQVLQAYDWKYLHDNHDCNFQVGGADQLGNI...
+</pre></div>
+</div>
+<p>and:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">Fasta_header</span><span class="p">]</span>
+<span class="n">fasta_header_delimiter</span> <span class="o">=</span> <span class="s">&quot;_&quot;</span>
+<span class="n">fasta_header_part</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Would result in taking only <cite>sequenceID</cite> into account.</p>
+</div>
+<div class="section" id="run-options">
+<h2>[Run_options]<a class="headerlink" href="#run-options" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">Run_options</span><span class="p">]</span>
+<span class="n">num_CPU</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>Will set the maximum number of CPUs to use to one.</p>
+</div>
+<div class="section" id="algorithm">
+<h2>[Algorithm]<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="Introduction.html#algo"><em>Algorithms and Application</em></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configuration Files</a><ul>
+<li><a class="reference internal" href="#example-file">Example file</a></li>
+<li><a class="reference internal" href="#fasta-header">[Fasta_header]</a></li>
+<li><a class="reference internal" href="#run-options">[Run_options]</a></li>
+<li><a class="reference internal" href="#algorithm">[Algorithm]</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Converters.html"
+                        title="previous chapter">Converters</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/ConfigurationFiles.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Converters.html" title="Converters"
+             >previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Janina Mass.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

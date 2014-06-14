@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Troubleshooting &mdash; Scythe 0.1a1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Scythe 0.1a1 documentation" href="index.html" />
+    <link rel="next" title="Format" href="Format.html" />
+    <link rel="prev" title="Tutorial" href="Tutorial.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Format.html" title="Format"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Tutorial.html" title="Tutorial"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="troubleshooting">
+<span id="trouble"></span><h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="error-message-are-all-gene-models-in-your-fasta-files">
+<h2>Error Message:  <cite>Are all gene models in your fasta files?</cite><a class="headerlink" href="#error-message-are-all-gene-models-in-your-fasta-files" title="Permalink to this headline">¶</a></h2>
+<p>Try checking the format of your fasta headers and the headers in your <cite>grp</cite> and <cite>loc</cite> files.
+Often, fasta headers contain more than just IDs and can be truncated. If all your fasta files follow the same scheme,
+calling Scythe with <cite>-d DELIMITER -a NUM</cite> will help.</p>
+<div class="section" id="example">
+<h3>Example:<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>fasta:</p>
+<div class="highlight-python"><div class="highlight"><pre>[...]
+&gt;ENSMLUP00000021790 pep:known_by_projection scaffold:Myoluc2.0:GL430705:85913:99944:-1 gene:ENSMLUG00000013451 transcript:ENSMLUT00000023922 gene_biotype:protein_coding transcript_biotype:protein_coding
+ITDGCSLFGNRSLSEESRRPVSGPRTRPQRLAERLTLLGGAAHSAVLPSSNRMEPPLGTQ
+QGAMQPLVADDFEACLLDKVRWTRGAQRVSQMVEEVQKVIYHLTTEISNQDIRFQAIPYS
+LMY[...]
+</pre></div>
+</div>
+<p>loc:</p>
+<div class="highlight-python"><div class="highlight"><pre>[...]
+ENSMLUG00000013451      ENSMLUP00000021790      ENSMLUP00000012239
+[...]
+</pre></div>
+</div>
+<p>That means your delimiter (-d) should be &#8221; &#8221; (space character) and the id index (-a) should be 0 (first part of the header is relevant.) Counting starts at 0.</p>
+<div class="highlight-python"><div class="highlight"><pre>scythe.py -i DIR -g GRP -d &quot; &quot; -a 0
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-2">
+<h3>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h3>
+<p>fasta header:</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt; pep:known_by_projection|ENSMLUP00000021790
+</pre></div>
+</div>
+<p>loc:</p>
+<div class="highlight-python"><div class="highlight"><pre>ENSMLUG00000013451      ENSMLUP00000021790      ENSMLUP00000012239
+</pre></div>
+</div>
+<p>Call with:</p>
+<div class="highlight-python"><div class="highlight"><pre>scythe.py -i DIR -g GRP -d &quot;|&quot; -a 1
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#error-message-are-all-gene-models-in-your-fasta-files">Error Message:  <cite>Are all gene models in your fasta files?</cite></a><ul>
+<li><a class="reference internal" href="#example">Example:</a></li>
+<li><a class="reference internal" href="#example-2">Example 2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Tutorial.html"
+                        title="previous chapter">Tutorial</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Format.html"
+                        title="next chapter">Format</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Trouble.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Format.html" title="Format"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Tutorial.html" title="Tutorial"
+             >previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Janina Mass.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

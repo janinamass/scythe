@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tutorial &mdash; Scythe 0.1a1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Scythe 0.1a1 documentation" href="index.html" />
+    <link rel="next" title="Troubleshooting" href="Trouble.html" />
+    <link rel="prev" title="Introduction" href="Introduction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Trouble.html" title="Troubleshooting"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Introduction.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tutorial">
+<span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="requirements">
+<h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Python 3</li>
+</ul>
+<div class="section" id="python-modules">
+<h4>python modules<a class="headerlink" href="#python-modules" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>configparser</li>
+<li>mysql-connector-python</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre>pip install --allow-external mysql-connector-python mysql-connector-python
+pip install configparser
+</pre></div>
+</div>
+<p>In case you want to work using a virtual environment switch to that environment first (see <a class="reference internal" href="#install-virt"><em>Install Scythe in a virtual environment</em></a>).</p>
+</div>
+<div class="section" id="external-software">
+<h4>external software<a class="headerlink" href="#external-software" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>needleall <a class="reference external" href="http://emboss.sourceforge.net/">http://emboss.sourceforge.net/</a></li>
+</ul>
+<p>Install emboss on debian-based systems:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install emboss
+</pre></div>
+</div>
+<p>Important: needleall from (the ubuntu package for) EMBOSS 6.6.0.0 causes problems. This program was tested and works with needleall from EMBOSS 6.4.0.0.</p>
+</div>
+</div>
+<div class="section" id="install-scythe-in-a-virtual-environment">
+<span id="install-virt"></span><h3>Install Scythe in a virtual environment<a class="headerlink" href="#install-scythe-in-a-virtual-environment" title="Permalink to this headline">¶</a></h3>
+<p>Install virtualenv via pip:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install virtualenv
+</pre></div>
+</div>
+<p>Create a virtual environment that uses Python 3 and activate:</p>
+<div class="highlight-python"><div class="highlight"><pre>virtualenv -p /usr/bin/python3 python3env
+source python3env/bin/activate
+</pre></div>
+</div>
+<p>Finally, install the scythe package:</p>
+<div class="highlight-python"><div class="highlight"><pre>(python3env)you@host:~$ pip install scythe
+</pre></div>
+</div>
+</div>
+<div class="section" id="without-virtual-environment">
+<h3>Without virtual environment<a class="headerlink" href="#without-virtual-environment" title="Permalink to this headline">¶</a></h3>
+<p>Via pip:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install scythe
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="using-scythe">
+<span id="usingscythe"></span><h2>Using Scythe<a class="headerlink" href="#using-scythe" title="Permalink to this headline">¶</a></h2>
+<p>There are three ways to use Scythe: GUI, command line parameters, or configuration file.</p>
+<p>The GUI allows you to directy obtain data from ENSEMBL, have it converted and processed by Scythe.</p>
+<p>If you are using local files, make sure you have directories prepared that contain the <cite>loc</cite> and fasta files, and that you have a <cite>grp</cite> file ready.
+(See <a class="reference internal" href="Converters.html#converters"><em>Converters</em></a> on how to convert other formats to <cite>loc</cite> or <cite>grp</cite>.)</p>
+<p>Read more about configuration files under <a class="reference internal" href="ConfigurationFiles.html#configurationfiles"><em>Configuration Files</em></a>.</p>
+<div class="section" id="graphical-user-interface">
+<span id="gui"></span><h3>Graphical User Interface<a class="headerlink" href="#graphical-user-interface" title="Permalink to this headline">¶</a></h3>
+<p>Call the GUI via</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">scythe</span><span class="o">-</span><span class="n">gui</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>or with configuration file <cite>conf.py</cite></p>
+<div class="highlight-python"><div class="highlight"><pre>scythe-gui.py conf.scy
+</pre></div>
+</div>
+<p>Please note that Scythe will write intermediate files to the current working directory. You might want to create a new directory for each run beforehand.
+Data that was already downloaded from ENSEMBL will not be downloaded again. If you want to reuse this data but try different parameters, just change the output directory (via the GUI) and start Scythe from the same working directory.</p>
+</div>
+<div class="section" id="command-line-interface">
+<span id="cli"></span><h3>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-text"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;../../scythe/scythe.py&quot;, line 11, in &lt;module&gt;
+    import configparser
+ImportError: No module named configparser
+</pre></div>
+</div>
+<p>Please note that you cannot automatically download sequences from ENSEMBL with <cite>scythe.py</cite> (see <a class="reference internal" href="Converters.html#ensembldl"><em>Downloading from ENSEMBL without the GUI</em></a>).</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tutorial</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li><a class="reference internal" href="#python-modules">python modules</a></li>
+<li><a class="reference internal" href="#external-software">external software</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#install-scythe-in-a-virtual-environment">Install Scythe in a virtual environment</a></li>
+<li><a class="reference internal" href="#without-virtual-environment">Without virtual environment</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-scythe">Using Scythe</a><ul>
+<li><a class="reference internal" href="#graphical-user-interface">Graphical User Interface</a></li>
+<li><a class="reference internal" href="#command-line-interface">Command Line Interface</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Introduction.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Trouble.html"
+                        title="next chapter">Troubleshooting</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Tutorial.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Trouble.html" title="Troubleshooting"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Introduction.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Janina Mass.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

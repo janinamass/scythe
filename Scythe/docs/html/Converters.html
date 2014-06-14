@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Converters &mdash; Scythe 0.1a1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Scythe 0.1a1 documentation" href="index.html" />
+    <link rel="next" title="Configuration Files" href="ConfigurationFiles.html" />
+    <link rel="prev" title="Format" href="Format.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ConfigurationFiles.html" title="Configuration Files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Format.html" title="Format"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="converters">
+<span id="id1"></span><h1>Converters<a class="headerlink" href="#converters" title="Permalink to this headline">¶</a></h1>
+<p>Scythe uses simple, human readable  formats to store gene-transcript and ortholog information.
+See also <a class="reference internal" href="Format.html#format"><em>Format</em></a>.</p>
+<div class="section" id="loc">
+<h2>loc<a class="headerlink" href="#loc" title="Permalink to this headline">¶</a></h2>
+<p>Scripts to convert the following formats to <cite>loc</cite> format are included:</p>
+<ul class="simple">
+<li>gff3</li>
+<li>tab-separated (eg ENSEMBL BioMart)</li>
+</ul>
+<p>run</p>
+<div class="highlight-python"><div class="highlight"><pre>scythe_loc_gff.py -f GFF
+</pre></div>
+</div>
+<div class="highlight-text"><div class="highlight"><pre>    #------------ loc output format ---------------------------#
+
+    LOCUS0	TRANSCRIPT0_0	TRANSCRIPT0_1	...	TRANSCRIPT0_n
+    LOCUS1	TRANSCRIPT1_0	...	TRANSCRIPT1_m
+    .
+    .
+    .
+    LOCUSk	TRANSCRIPTk_0	...TRANSCRIPTk_l
+
+    #----------------------------------------------------------#
+
+
+    #-------- gff version 3 input format ----------------------#
+    example (tab is shown as \t):
+
+    ##gff-version 3
+    L1i\texample\tgene\t1000\t9000\t.\t+\t.\tID=L1;Name=L1;Note=example
+    L1.a\texample\tmRNA\t1000\t9000\t.\t+\t.\tID=L1.a;Parent=L1;Name=L1.a
+
+
+    Note that this script only relies on the &quot;ID&quot; and &quot;Parent&quot; tags,
+    &quot;Name&quot; will be ignored. If &quot;longest&quot; is specified (eg phytozome)
+    and ==&quot;1&quot;, the transcript will be placed on the first position
+    for its gene.
+    #----------------------------------------------------------#
+
+    
+
+    #####################################
+    #  scythe_loc_gff.py  -f FILE.gff3  #
+    #####################################
+
+    -f, --file=gff3_FILE
+    -o, --output=FILE        output file [default: gff3_FILE.loc]
+    -h, --help               prints this
+    -H, --HELP               show help on format
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-python"><div class="highlight"><pre>scythe_loc_tsv.py -f FILE.tsv
+</pre></div>
+</div>
+<div class="highlight-text"><div class="highlight"><pre>    #------------ loc output format ---------------------------#
+
+    LOCUS0	TRANSCRIPT0_0	TRANSCRIPT0_1	...	TRANSCRIPT0_n
+    LOCUS1	TRANSCRIPT1_0	...	TRANSCRIPT1_m
+    .
+    .
+    .
+    LOCUSk	TRANSCRIPTk_0	...TRANSCRIPTk_l
+
+    #----------------------------------------------------------#
+
+    
+
+    example ensembl query:
+
+    http://www.ensembl.org/biomart/
+    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+    &lt;!DOCTYPE Query&gt;
+    &lt;Query  virtualSchemaName = &quot;default&quot; formatter = &quot;TSV&quot;
+    header = &quot;0&quot; uniqueRows = &quot;0&quot; count = &quot;&quot; datasetConfigVersion = &quot;0.6&quot; &gt;
+    &lt;Dataset name = &quot;hsapiens_gene_ensembl&quot; interface = &quot;default&quot; &gt;
+    &lt;Filter name = &quot;biotype&quot; value = &quot;protein_coding&quot;/&gt;
+    &lt;Attribute name = &quot;ensembl_gene_id&quot; /&gt;
+    &lt;Attribute name = &quot;ensembl_transcript_id&quot; /&gt;
+    &lt;Attribute name = &quot;ensembl_peptide_id&quot; /&gt;
+    &lt;Attribute name = &quot;cds_length&quot; /&gt;
+    &lt;/Dataset&gt;
+    &lt;/Query&gt;
+    
+
+    ###########################
+    #  scythe_loc_tsv.py      #
+    ###########################
+    -f, --file=ENSEMBLBioMart.tsv
+                              format: 1st column: gene id, 2nd column:transcript id,
+                                      3rd column: peptide id, 4th column: cds length;
+                                      gene ids can occur multiple times
+    -c, --custom=COLx,COLy,COLz,...   COLi in [&quot;gene&quot;,&quot;transcript&quot;, &quot;protein&quot;, &quot;length&quot;]
+                                      Use this if your file is different from the described biomart output.
+                                      &quot;cds_length&quot; is optional but recommended, at least one of
+                                      [&quot;transcript&quot;, &quot;protein&quot;] need to be included
+    -o, --output=FILE         output file [default: ENSEMBLEBioMart.tsv.loc]
+    -h, --help                prints this
+    -H, --HELP                show help on format
+    #----------------------------------#
+</pre></div>
+</div>
+<p>See also: <a class="reference internal" href="Format.html#loc-format"><em>loc format</em></a>.</p>
+</div>
+<div class="section" id="grp">
+<h2>grp<a class="headerlink" href="#grp" title="Permalink to this headline">¶</a></h2>
+<p>Please note that the <cite>grp</cite> converters  need a concatenated <cite>loc</cite> file in addition to the orthology information.
+Scripts to convert the following formats to <cite>grp</cite> are included:</p>
+<ul class="simple">
+<li>orthomcl</li>
+<li>proteinortho</li>
+<li>tab-separated (eg ENSEMBL BioMart)</li>
+</ul>
+<p>run</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">scythe_grp_orthomcl</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">scythe_grp_proteinortho</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">scythe_grp_tsv</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>See also <a class="reference internal" href="Format.html#grp-format"><em>grp format</em></a>.</p>
+</div>
+</div>
+<div class="section" id="downloading-from-ensembl-without-the-gui">
+<span id="ensembldl"></span><h1>Downloading from ENSEMBL without the GUI<a class="headerlink" href="#downloading-from-ensembl-without-the-gui" title="Permalink to this headline">¶</a></h1>
+<p>To download sequences (pep and cds fasta files) from ENSEMBL without the graphical user interface, use
+<cite>scythe_ensembl_fasta.py</cite> for fasta files and <cite>scythe_ensembl_ortho_mysql.py</cite> to download pairwise orthology information.</p>
+<div class="section" id="scythe-ensembl-fasta">
+<h2>scythe_ensembl_fasta<a class="headerlink" href="#scythe-ensembl-fasta" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text"><div class="highlight"><pre>    usage: scythe_ensembl_fasta.py -s species1,species2 -r INT
+
+    options:
+    -s, --species=STR   comma-separated list of species (eg &#39;homo_sapiens,gorilla_gorilla&#39;)
+    -r, --release=NUM   ENSEMBL version (eg &#39;75&#39;)
+    -d, --dir DIR       output directory [default ./]
+    -h, --help          prints this
+</pre></div>
+</div>
+</div>
+<div class="section" id="scythe-ensembl-ortho-mysql">
+<h2>scythe_ensembl_ortho_mysql<a class="headerlink" href="#scythe-ensembl-ortho-mysql" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text"><div class="highlight"><pre>    usage: scythe_ensembl_ortho_mysql.py -s species_1,species_2 -r INT
+
+    options:
+    -s, --species=STR   comma-separated list of species (eg &#39;homo_sapiens,gorilla_gorilla&#39;)
+    -r, --release=NUM   ensembl version (eg &#39;75&#39;)
+    -h, --help          prints this
+</pre></div>
+</div>
+</div>
+<div class="section" id="manual-merge-of-tab-separated-files-to-one-grp-file">
+<h2>Manual merge of tab-separated files  to one  <cite>.grp</cite> file<a class="headerlink" href="#manual-merge-of-tab-separated-files-to-one-grp-file" title="Permalink to this headline">¶</a></h2>
+<p>If you have pairwise (two-species) files ready and want to
+merge them into a multi-species <cite>.grp</cite> file you can do so via the
+<cite>scythe_ensembl2grp</cite>  and <cite>scythe_mergeSubsets</cite> scripts.</p>
+</div>
+<div class="section" id="scythe-ensembl2grp">
+<h2>scythe_ensembl2grp<a class="headerlink" href="#scythe-ensembl2grp" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text"><div class="highlight"><pre>    usage: scythe_ensembl2grp.py -f FILE1,FILE2 -o OUT.grp
+
+    -f, --files=STR     list of ensembl tsv files (eg sA.tsv,sB.tsv,sC.tsv)
+    -o, --output=FILE   output file
+    -h, --help          prints this
+</pre></div>
+</div>
+</div>
+<div class="section" id="scythe-mergesubsets">
+<h2>scythe_mergeSubsets<a class="headerlink" href="#scythe-mergesubsets" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text"><div class="highlight"><pre>    usage:  scythe_mergeSubsets.py -g groups.grp -o new.grp
+
+    options:
+    -g, --grp=FILE.grp
+    -o, --output=OUTFILE.grp    output file [default: FILE.allspec.grp]
+    [-r, --rename               discard old orthogroup ids and start numbering from 0]
+    -h, --help                  prints this
+    [-n, --numspec=N    min number of species ]
+    ------------
+    .grp format: GroupID	geneIDiSp1	geneIDjSp2	...geneIDkSpn
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Converters</a><ul>
+<li><a class="reference internal" href="#loc">loc</a></li>
+<li><a class="reference internal" href="#grp">grp</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#downloading-from-ensembl-without-the-gui">Downloading from ENSEMBL without the GUI</a><ul>
+<li><a class="reference internal" href="#scythe-ensembl-fasta">scythe_ensembl_fasta</a></li>
+<li><a class="reference internal" href="#scythe-ensembl-ortho-mysql">scythe_ensembl_ortho_mysql</a></li>
+<li><a class="reference internal" href="#manual-merge-of-tab-separated-files-to-one-grp-file">Manual merge of tab-separated files  to one  <cite>.grp</cite> file</a></li>
+<li><a class="reference internal" href="#scythe-ensembl2grp">scythe_ensembl2grp</a></li>
+<li><a class="reference internal" href="#scythe-mergesubsets">scythe_mergeSubsets</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Format.html"
+                        title="previous chapter">Format</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ConfigurationFiles.html"
+                        title="next chapter">Configuration Files</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Converters.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ConfigurationFiles.html" title="Configuration Files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Format.html" title="Format"
+             >previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Janina Mass.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Format &mdash; Scythe 0.1a1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Scythe 0.1a1 documentation" href="index.html" />
+    <link rel="next" title="Converters" href="Converters.html" />
+    <link rel="prev" title="Troubleshooting" href="Trouble.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Converters.html" title="Converters"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Trouble.html" title="Troubleshooting"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="format">
+<span id="id1"></span><h1>Format<a class="headerlink" href="#format" title="Permalink to this headline">¶</a></h1>
+<p>The formats have a very simple, human readable structure allowing users to manually modify or create them.
+For locus-gene model identifier relations: <a class="reference internal" href="#loc-format"><em>loc format</em></a>
+For grouping of orthologous genes <a class="reference internal" href="#grp-format"><em>grp format</em></a></p>
+<div class="section" id="loc-format">
+<span id="id2"></span><h2>loc format<a class="headerlink" href="#loc-format" title="Permalink to this headline">¶</a></h2>
+<p>Each row of a <cite>loc</cite> file represents a set of gene models (GM) for a gene locus (L).
+Rows start with a the gene locus ID followed by its gene model identifiers.
+The GM in the second column in the file is treated as the reference form for its gene locus,
+i.e. in a case of a tie, this gene model is preferred.
+The columns are tab-separated.</p>
+<p>File <cite>Spec0.loc</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre>Sp0L0       Sp0L0GM0        Sp0L0GM1        . . . Sp0L0GMjLF
+Sp0L1       Sp1L0GM0        Sp0L1GM1        . . . Sp0L1GMkLF
+.
+.
+.
+Sp0Lm       Sp1LmGM0        Sp0LmGM1        . . . Sp0LmGMlLF
+</pre></div>
+</div>
+</div>
+<div class="section" id="grp-format">
+<span id="id3"></span><h2>grp format<a class="headerlink" href="#grp-format" title="Permalink to this headline">¶</a></h2>
+<p>Each row of a <cite>grp</cite> file represents an orthologous group.
+Rows start with a unique group ID followed by orthologous gene identifiers for the respective species.
+Rows don&#8217;t need to have the same number of columns. The gene loci order within a row is irrelevant.
+The programm will keep the identifiers for its output.
+The columns are tab-separated.</p>
+<p>File <cite>orthogroups.grp</cite> (Sp: species, L: orthologous gene loci):</p>
+<div class="highlight-python"><div class="highlight"><pre>0   SpaLw   SpbLw   SpcLw   . . . SpzLw
+1   SpaLx   SpbLx   SpcLx   . . .
+.
+.
+.
+N   SpaLz   SpbLz   SpcLz   . . .
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Format</a><ul>
+<li><a class="reference internal" href="#loc-format">loc format</a></li>
+<li><a class="reference internal" href="#grp-format">grp format</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Trouble.html"
+                        title="previous chapter">Troubleshooting</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Converters.html"
+                        title="next chapter">Converters</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Format.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Converters.html" title="Converters"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Trouble.html" title="Troubleshooting"
+             >previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Janina Mass.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

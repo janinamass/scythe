@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; Scythe 0.1a1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Scythe 0.1a1 documentation" href="index.html" />
+    <link rel="next" title="Tutorial" href="Tutorial.html" />
+    <link rel="prev" title="Welcome to Scythe’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Tutorial.html" title="Tutorial"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Scythe’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Scythe picks best matching transcripts for one-to-one orthologous genes from two or more species.</p>
+<p>The goal is to provide the best, i.e. most homologous set of sequences, for a subsequent multiple sequence alignment in order
+to minimize sources for misalignment in an automated fashion.
+Scythe will perform pairwise global alignments using the Needleman-Wunsch algorithm [NE1970] as implemented in needleall as part of the EMBOSS package [EMB2000].</p>
+<p>Please see the <a class="reference internal" href="Tutorial.html#tutorial"><em>Tutorial</em></a> on how to use Scythe.</p>
+<p>Important! <cite>needleall</cite> appears to be broken in (the ubuntu package for) EMBOSS 6.6.0.0; this is working with <cite>needleall</cite> from EMBOSS 6.4.0.0.</p>
+<table class="docutils citation" frame="void" id="nee1970" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[NEE1970]</td><td>Needleman, Saul B.; and Wunsch, Christian D. (1970). &#8220;A general method applicable to the search for similarities in the amino acid sequence of two proteins&#8221;. Journal of Molecular Biology 48 (3): 443–53. doi:10.1016/0022-2836(70)90057-4. PMID 5420325.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="emb2000" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[EMB2000]</td><td>EMBOSS: The European Molecular Biology Open Software Suite (2000) Rice,P. Longden,I. and Bleasby, A.Trends in Genetics 16, (6) pp276&#8211;277</td></tr>
+</tbody>
+</table>
+<div class="section" id="algorithms-and-application">
+<span id="algo"></span><h2>Algorithms and Application<a class="headerlink" href="#algorithms-and-application" title="Permalink to this headline">¶</a></h2>
+<p>Scythe performs pairwise global alignments [NEED1970] to measure the similarity between transcripts.
+Transcripts are only compared between species.</p>
+<p>There are three main strategies implemented in Scythe to deal with the sequences after scoring:
+A single-linkage approach either starting with reference transcripts as seed (<a class="reference internal" href="#sl-ref">sl_ref</a>) and adding best matching sequences from non-reference species
+or starting out with the best matching transcript pair for a gene (<a class="reference internal" href="#sl-glob">sl_glob</a>).
+A <cite>reference species</cite> is defined as a species that has only one transcript (<cite>reference transcript</cite>) for a gene.
+Every gene is processed individually, a <cite>reference species</cite> is only local to a gene and is automatically derived from the input data.
+Alternatively, the maximum-sum (<a class="reference internal" href="#mx-sum">mx_sum</a>) approach calculates the score for all transcript pairings between the species and return a maximum-scoring set.
+Please note that this approach might not be feasable for large data sets.</p>
+<div class="section" id="mx-sum">
+<span id="id1"></span><h3>mx_sum<a class="headerlink" href="#mx-sum" title="Permalink to this headline">¶</a></h3>
+<p>mx_sum (maximum sum) returns an optimal solution for the problem of score maximization. There are, however, scenarios where this would not represent the desired result: In cases of single-transcript outliers, their pairwise score to all other sequences is always taken into account and may favor sequences that are less dissimilar to the outlier.</p>
+</div>
+<div class="section" id="sl-ref">
+<span id="id2"></span><h3>sl_ref<a class="headerlink" href="#sl-ref" title="Permalink to this headline">¶</a></h3>
+<p>sl_ref (single linkage reference)  finds similar gene models given a reference species.
+This single-linkage approach starts with a reference transcript as seed and adds best matching sequences from non-reference species. A <cite>reference species</cite> is defined as a species that has only one transcript (<cite>reference transcript</cite>) for a gene. Every gene is processed individually, a <cite>reference species</cite> is only local to a gene and is derived from the input data.</p>
+</div>
+<div class="section" id="sl-glob">
+<h3>sl_glob<a class="headerlink" href="#sl-glob" title="Permalink to this headline">¶</a></h3>
+<p>sl_glob (single linkage global) is similar to the <cite>sl_ref</cite> approach, but starts out with the best matching pair. This should provide a good starting point in absence of a reference gene model and may be able circumvent outliers.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#algorithms-and-application">Algorithms and Application</a><ul>
+<li><a class="reference internal" href="#mx-sum">mx_sum</a></li>
+<li><a class="reference internal" href="#sl-ref">sl_ref</a></li>
+<li><a class="reference internal" href="#sl-glob">sl_glob</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to Scythe&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Tutorial.html"
+                        title="next chapter">Tutorial</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Introduction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Tutorial.html" title="Tutorial"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Scythe’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">Scythe 0.1a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Janina Mass.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
