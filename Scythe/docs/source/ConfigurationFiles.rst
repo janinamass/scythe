@@ -2,8 +2,7 @@
 
 Configuration Files
 ===================
-The configuration files allow you save your settings/restore your settings.
-Most entries should be self-explanatory.
+The configuration files allow you save/restore your settings.
 
 Example file
 -------------
@@ -63,6 +62,7 @@ Would result in taking only `sequenceID` into account.
 [Run_options]
 --------------
 ::
+
     [Run_options]
     num_CPU=1
 
