@@ -2,3 +2,8 @@ include *.txt
 include scythe/gui/*.xbm
 recursive-include docs *.rst
 recursive-include docs *.html
+recursive-include docs *.png
+recursive-include docs *.js
+recursive-include docs *.*
+
+

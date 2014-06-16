@@ -66,11 +66,13 @@ Python modules
 ~~~~~~~~~~~~~~~
 * configparser
 * mysql-connector-python
+* httplib2
 
  ::
 
     pip install configparser
     pip install --allow-external mysql-connector-python mysql-connector-python 
+    pit install httplib2
 
 External programs
 ------------------

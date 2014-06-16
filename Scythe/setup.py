@@ -4,6 +4,7 @@ setup(
         version='0.1a1',
         author='Janina Mass',
         author_email='janina.mass@hhu.de',
+        install_requires=["configparser","httplib2"],
         packages=find_packages(),
         scripts=['scythe/convert/scythe_ensembl2grp.py',
             'scythe/convert/scythe_ensembl_fasta.py',
