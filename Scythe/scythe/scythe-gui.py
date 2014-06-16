@@ -14,7 +14,7 @@ from tkinter import OptionMenu
 from tkinter import Scale
 from tkinter import Listbox
 
-import scythe3 as scythe
+import scythe as scythe
 
 #from gui.dialogs import ScytheConvertDialogLoc
 #from gui.dialogs import ScytheConvertDialogGrp
