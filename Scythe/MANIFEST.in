@@ -1,0 +1,4 @@
+include *.txt
+include scythe/gui/*.xbm
+recursive-include docs *.rst
+recursive-include docs *.html
