@@ -1,4 +1,5 @@
-#import httplib2
+import httplib2
+import json
 import sys
 import mysql.connector
 import os
@@ -6,6 +7,22 @@ from ftplib import FTP
 import gzip
 from helpers.fastahelper import FastaParser
 import os
+
+
+def specInfo():
+    pass
+    http = httplib2.Http(".cache")
+    server = "http://beta.rest.ensembl.org"
+    ext = "/info/species"
+    resp, content = http.request(server+ext, method="GET", headers={"Content-Type":"application/json"})
+    data = json.loads(content.decode("utf8"))
+    return(data)
+
+
+
+
+
+
 def getSequencesFromFTP(outdir, release, specieslist=[]):
     path=outdir+os.sep+"fa"
     print(outdir, release, specieslist)
