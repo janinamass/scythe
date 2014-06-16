@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import imp
 import sys
@@ -73,7 +73,7 @@ def usage():
                                      (default:0)
 
   further help:
-    Please see documentation in the 'docs'-directory.
+    Please see documentation.
     """)
     sys.exit(2)
 #-----/usage------#

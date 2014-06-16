@@ -295,7 +295,7 @@ class ScytheConfigEditor():
         self.st_fasta_header_delimiter = tk.StringVar()
         self.st_fasta_header_part = tk.StringVar()
         #cpu_count starts at 0 for one cpu
-        self.sc_config_numthreads = Scale(fr_run, from_=1, to=multiprocessing.cpu_count()+1, orient=tk.HORIZONTAL)
+        self.sc_config_numthreads = Scale(fr_run, from_=1, to=multiprocessing.cpu_count(), orient=tk.HORIZONTAL)
         self.sc_config_numthreads.grid(row=0, column=1, sticky=tk.E)
         en_config_gapopen=tk.Entry(fr_penalties, textvariable=self.var_subsec[CF_PENALTIES][0])
         en_config_gapextend=tk.Entry(fr_penalties,textvariable=self.var_subsec[CF_PENALTIES][1] )
