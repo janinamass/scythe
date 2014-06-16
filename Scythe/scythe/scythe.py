@@ -307,7 +307,7 @@ def runScythe(groups, delim, asID, namesList, cleanUp,  faFileList, inDir, outDi
     print("Started {}\n".format(timeStarted))
     print("NUM_CPU", numCPU)
 
-    SEMAPHORE=multiprocessing.BoundedSemaphore(numCPU)
+    SEMAPHORE=multiprocessing.BoundedSemaphore(numCPU-1)
     print(delim, asID, locDir, faDir,inDir)
 
     specsList = []
