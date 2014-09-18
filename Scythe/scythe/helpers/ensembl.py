@@ -5,7 +5,7 @@ import mysql.connector
 import os
 from ftplib import FTP
 import gzip
-from helpers.fastahelper import FastaParser
+from scythe.helpers.fastahelper import FastaParser
 import os
 
 
