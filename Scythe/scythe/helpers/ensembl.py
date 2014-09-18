@@ -12,11 +12,13 @@ import os
 def specInfo():
     pass
     http = httplib2.Http(".cache")
-    server = "http://beta.rest.ensembl.org"
+    server = "http://rest.ensembl.org"
     ext = "/info/species"
     resp, content = http.request(server+ext, method="GET", headers={"Content-Type":"application/json"})
+    print(resp,"RESP")
+    print(content, "CONT")
     data = json.loads(content.decode("utf8"))
-    return(data)
+    return data
 
 
 
