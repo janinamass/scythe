@@ -763,7 +763,7 @@ class ScytheWizard(tk.Tk):
                 tk.messagebox.showwarning("Error","Please make the first three letters of your fasta file names in {} unique.\nSorry for the inconvenience.".format(faDir))
                 sys.exit(1)
 
-        #run scythe
+        #run scythepkg
         if (not reloadFields or useLocal=="yes") and len(set(namesList)) >0:
             self.progbar = ttk.Progressbar(root, mode='indeterminate')
             self.progbar.grid(column=0, row=5, sticky = "W")

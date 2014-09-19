@@ -85,7 +85,7 @@ def getHomologyMemberId(homology_ids, release):
     curA.close()
     return (res)
 
-def fetch1to1orthologs(method_link_species_set_ids,release):
+def fetch1to1orthologsOld(method_link_species_set_ids,release):
     """Return (homology_id, genome_db_id, stable_id)"""
     method_link_species_set_ids=[str(s) for s in method_link_species_set_ids]
 
@@ -99,17 +99,48 @@ def fetch1to1orthologs(method_link_species_set_ids,release):
     cmd +=" WHERE ( "
     cmd +=s
     cmd +='AND homology.description="ortholog_one2one"'
-    cmd +="AND "+s
     cmd +="AND species_set.species_set_id = method_link_species_set.species_set_id "
     cmd +="AND homology.method_link_species_set_id = method_link_species_set.method_link_species_set_id "
     cmd +="AND homology_member.member_id=member.member_id "
     cmd +="AND homology_member.homology_id=homology.homology_id "
     cmd +=")"
+    print(cmd)
+    sys.exit(1)
+    curA.execute(cmd)
+    res = curA.fetchall()
+    curA.close()
+    return (res)
+
+
+def fetch1to1orthologs(method_link_species_set_ids, release):
+    """Return (homology_id, genome_db_id, stable_id)"""
+    if int(release) < 75:
+        sys.exit(1)
+    method_link_species_set_ids=[str(s) for s in method_link_species_set_ids]
+
+    cmd = 'use ensembl_compara_'+str(release)+";"
+    cnx = mysql.connector.connect(user='anonymous', host='ensembldb.ensembl.org' )
+    curA = cnx.cursor(buffered=True)
+    curA.execute(cmd)
+    s = "method_link_species_set.method_link_species_set_id IN ("+ ",".join(method_link_species_set_ids)+") "
+    cmd = " SELECT DISTINCT homology.homology_id,  gene_member.genome_db_id,  gene_member.stable_id from"
+    cmd +=" homology, homology_member, gene_member, species_set, method_link_species_set "
+    cmd +=" WHERE ( "
+    cmd +=s
+    cmd +='AND homology.description="ortholog_one2one" '
+    cmd +="AND species_set.species_set_id = method_link_species_set.species_set_id "
+    cmd +="AND homology.method_link_species_set_id = method_link_species_set.method_link_species_set_id "
+    cmd +="AND homology_member.gene_member_id=gene_member.gene_member_id "
+    cmd +="AND homology_member.homology_id=homology.homology_id "
+    cmd +=")"
+    print(cmd)
 
     curA.execute(cmd)
     res = curA.fetchall()
     curA.close()
     return (res)
+
+
 
 
 

@@ -1,5 +1,5 @@
 import re, sys, os, subprocess, string, random
-from scythe.helpers.fastahelper import FastaParser
+from scythepkg.helpers.fastahelper import FastaParser
 import datetime
 import time
 class ScytheBase(object):

@@ -14,15 +14,15 @@ from tkinter import OptionMenu
 from tkinter import Scale
 from tkinter import Listbox
 
-import scythe as scythe
+import scythe_cli as scythe
 
 #from gui.dialogs import ScytheConvertDialogLoc
 #from gui.dialogs import ScytheConvertDialogGrp
 
-import scythe.helpers.mergeSubsets as mergeSubsets
-import scythe.helpers.ensembl_ortho_mysql as ensembl_ortho_mysql
-import scythe.helpers.ensembl2grp as ensembl2grp
-import scythe.helpers.ensembl as ensembl
+import scythepkg.helpers.mergeSubsets as mergeSubsets
+import scythepkg.helpers.ensembl_ortho_mysql as ensembl_ortho_mysql
+import scythepkg.helpers.ensembl2grp as ensembl2grp
+import scythepkg.helpers.ensembl as ensembl
 
 import multiprocessing
 import queue
@@ -32,7 +32,7 @@ wd = os.path.join(os.path.dirname(__file__))
 root=tk.Tk()
 root.title("Scythe GUI 0.1.0")
 try:
-    root.iconbitmap("@"+wd+os.sep+"scythe"+os.sep+"gui"+os.sep+"scy.xbm")
+    root.iconbitmap("@"+wd+os.sep+"scythepkg"+os.sep+"gui"+os.sep+"scy.xbm")
 except tk.TclError as e:
     print(e)
     sys.stderr.write(str(e))
@@ -763,7 +763,7 @@ class ScytheWizard(tk.Tk):
                 tk.messagebox.showwarning("Error","Please make the first three letters of your fasta file names in {} unique.\nSorry for the inconvenience.".format(faDir))
                 sys.exit(1)
 
-        #run scythe
+        #run scythepkg
         if (not reloadFields or useLocal=="yes") and len(set(namesList)) >0:
             self.progbar = ttk.Progressbar(root, mode='indeterminate')
             self.progbar.grid(column=0, row=5, sticky = "W")

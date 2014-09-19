@@ -38,13 +38,13 @@ logo = """
 def usage():
     print ("""
     ######################################
-    # scythe.py v0.1a1                   #
+    # scythe-cli.py v0.1a1                   #
     ######################################
   usage:
-     scythe.py -i DIR -g .grpFILE --cleanup
+     scythe-cli.py -i DIR -g .grpFILE --cleanup
 
   usage with configuration file:
-     scythe.py --config configuration.scy
+     scythe-cli.py --config configuration.scy
 
   general options:
     -C, --config                     use configuration file instead of

@@ -11,15 +11,15 @@ from itertools import chain
 import configparser
 import datetime
 
-from scythe.helpers.grphelper import GrpParser
-from scythe.helpers.scythecore import ScytheSpec
-from scythe.helpers.scythecore import ScytheGroupMap, ScytheGroup
-from scythe.helpers.scythecore import ScytheFrame
-from scythe.helpers.scythecore import AutoVD
+from scythepkg.helpers.grphelper import GrpParser
+from scythepkg.helpers.scythecore import ScytheSpec
+from scythepkg.helpers.scythecore import ScytheGroupMap, ScytheGroup
+from scythepkg.helpers.scythecore import ScytheFrame
+from scythepkg.helpers.scythecore import AutoVD
 
-from scythe.helpers.fastahelper import FastaParser
-from scythe.algo.algomod import AlgoHandler
-from scythe.algo.algomod import EmptyScoringDctException, EmptySequenceDctException
+from scythepkg.helpers.fastahelper import FastaParser
+from scythepkg.algo.algomod import AlgoHandler
+from scythepkg.algo.algomod import EmptyScoringDctException, EmptySequenceDctException
 
 import threading
 import time
@@ -38,13 +38,13 @@ logo = """
 def usage():
     print ("""
     ######################################
-    # scythe.py v0.1a1                   #
+    # scythe-cli.py v0.1a1                   #
     ######################################
   usage:
-     scythe.py -i DIR -g .grpFILE --cleanup
+     scythe-cli.py -i DIR -g .grpFILE --cleanup
 
   usage with configuration file:
-     scythe.py --config configuration.scy
+     scythe-cli.py --config configuration.scy
 
   general options:
     -C, --config                     use configuration file instead of

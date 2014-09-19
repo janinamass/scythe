@@ -5,7 +5,7 @@ import mysql.connector
 import os
 from ftplib import FTP
 import gzip
-from scythe.helpers.fastahelper import FastaParser
+from scythepkg.helpers.fastahelper import FastaParser
 import os
 
 
@@ -15,14 +15,8 @@ def specInfo():
     server = "http://rest.ensembl.org"
     ext = "/info/species"
     resp, content = http.request(server+ext, method="GET", headers={"Content-Type":"application/json"})
-    print(resp,"RESP")
-    print(content, "CONT")
     data = json.loads(content.decode("utf8"))
     return data
-
-
-
-
 
 
 def getSequencesFromFTP(outdir, release, specieslist=[]):
@@ -115,13 +109,14 @@ class Pep(object):
         self.pep  = pep
         self.length = length
         self.isLongest = None
+
+
 def prepareLocFromFasta(fasta, outpath, specname):
     genes = {}
     longest = {}
     print(fasta, outpath)
     if not os.path.isdir(outpath):
         os.makedirs(outpath)
-
 
     if not outpath:
         out = fasta+".loc"
@@ -135,8 +130,8 @@ def prepareLocFromFasta(fasta, outpath, specname):
         geneid = [t for t in tmp if "gene:" in t]
         geneid = geneid[0].split("gene:")[-1]
         proteinid = tmp[0]
-        protlen=len(i[1])
-        peptide= Pep(proteinid,geneid,protlen)
+        protlen = len(i[1])
+        peptide = Pep(proteinid,geneid,protlen)
         try:
             genes[geneid].append(peptide)
             if peptide.length > longest[geneid].length:
