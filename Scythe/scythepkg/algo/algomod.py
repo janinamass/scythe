@@ -1,4 +1,7 @@
 from itertools import chain
+import sys
+
+
 class AlgoHandler(object):
     def __init__(self):
         pass
@@ -104,6 +107,7 @@ class AlgoHandler(object):
                 cmaxid = None
                 cmaxsp = None
                 for up in unprocessed:#spec
+
                     for uc in species2id[up]:#seq
                         if uc in scoringDct: # is in distance dict
                             try:
@@ -122,15 +126,17 @@ class AlgoHandler(object):
                             except TypeError as e:
                                     tmp = -1
                             if (tmp >cmax or (tmp == cmax and sequenceDct[uc].isReference)):
+                                print("DEBUG125 :{}{}".format(c,uc))
                                 cmax = int(avd[c][uc])
                                 cmaxid = uc
                                 cmaxsp = up
                                 cmax=tmp
-
-            uncoll.remove(cmaxid)
-            unprocessed.remove(cmaxsp)
-            coll.add(cmaxid)
-            processed.add(cmaxsp)
+            if uncoll and cmaxid:
+                uncoll.remove(cmaxid)
+                unprocessed.remove(cmaxsp)
+            if cmaxid:
+                coll.add(cmaxid)
+                processed.add(cmaxsp)
         return(sequenceDct, coll, species2id)
 
 
@@ -138,7 +144,6 @@ class AlgoHandler(object):
 
 
     def sl_glob(self, scoringDct = {},sequenceDct = {}):
-        print("debug", "sl_glob")
         if not scoringDct:
             raise EmptyScoringDctException("sth wrong during sl_glob")
         if not sequenceDct:
