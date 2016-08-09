@@ -1,4 +1,21 @@
 from itertools import chain
+import logging
+logger = logging.getLogger("algomod")
+logger.setLevel(logging.DEBUG)
+# create file handler which logs even debug messages
+fh = logging.FileHandler('scy_algomod.log')
+fh.setLevel(logging.DEBUG)
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.ERROR)
+# create formatter and add it to the handlers
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+# add the handlers to the logger
+logger.addHandler(fh)
+logger.addHandler(ch)
+
 class AlgoHandler(object):
     def __init__(self):
         pass
@@ -92,45 +109,61 @@ class AlgoHandler(object):
         #####################
 
         while(unprocessed):
+            logger.debug("unprocessed: {}".format(unprocessed))
             if not coll:
+                logger.debug("coll: {} ".format(coll))
                 max_seqid,max_specid = self.getMaxSeed(scoringDct = scoringDct, sequenceDct= sequenceDct, uncoll = uncoll)
+                logger.debug("max_seqid: {}, max_specid: {} ".format(max_seqid, max_specid))
                 for j,k in  zip(max_seqid,max_specid):
+                    logger.debug("add/rm j: {}, coll/uncoll:{}, k: {}, processed: {}, unprocessed: {} ".format(
+                        j,k,coll,uncoll,processed,unprocessed))
                     coll.add(j)
                     uncoll.remove(j)
                     processed.add(k)
                     unprocessed.remove(k)
+                    logger.debug("add/rm j: {}, coll/uncoll:{}, {}, k: {}, processed: {}, unprocessed: {} ".format(
+                        j,coll,uncoll,k,processed,unprocessed))
             for c in coll:
+                logger.debug("c: {} ".format(c))
                 cmax = -1
                 cmaxid = None
                 cmaxsp = None
                 for up in unprocessed:#spec
+                    logger.debug("up: {} ".format(up))
                     for uc in species2id[up]:#seq
                         if uc in scoringDct: # is in distance dict
                             try:
                                 tmp = int(scoringDct[uc][c])
+                                logger.debug("tmp score: {} ".format(tmp))
                             except TypeError as e:
                                 tmp = -1
                             if (tmp >cmax or (tmp == cmax and sequenceDct[uc].isReference)) :
                                 # tie resolved
                                 cmax = int(scoringDct[uc][c])
+                                # todo ??
                                 cmaxid = uc
                                 cmaxsp = up
                                 cmax=tmp
+                                logger.debug("cmaxid {}, cmaxsp {}, cmax {} ".format(cmaxid, cmaxsp, cmax))
                         elif c in scoringDct:
                             try:
                                 tmp = int(scoringDct[c][uc])
                             except TypeError as e:
                                     tmp = -1
                             if (tmp >cmax or (tmp == cmax and sequenceDct[uc].isReference)):
+                                # todo ??
                                 cmax = int(avd[c][uc])
                                 cmaxid = uc
                                 cmaxsp = up
                                 cmax=tmp
-
-            uncoll.remove(cmaxid)
-            unprocessed.remove(cmaxsp)
-            coll.add(cmaxid)
-            processed.add(cmaxsp)
+                                logger.debug("cmaxid {}, cmaxsp {}, cmax {} ".format(cmaxid, cmaxsp, cmax))
+            logger.debug("uncoll {}, unprocessed {}, coll {} , processed {}".format(uncoll, unprocessed, uncoll, coll, cmaxsp))
+            logger.debug("species2id {}".format(species2id))
+            if unprocessed:
+                uncoll.remove(cmaxid)
+                unprocessed.remove(cmaxsp)
+                coll.add(cmaxid)
+                processed.add(cmaxsp)
         return(sequenceDct, coll, species2id)
 
 
