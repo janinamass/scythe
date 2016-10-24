@@ -137,10 +137,8 @@ class AlgoHandler(object):
                                 logger.debug("tmp score: {} ".format(tmp))
                             except TypeError as e:
                                 tmp = -1
-                            if (tmp >cmax or (tmp == cmax and sequenceDct[uc].isReference)) :
+                            if (tmp > cmax or (tmp == cmax and sequenceDct[uc].isReference)) :
                                 # tie resolved
-                                cmax = int(scoringDct[uc][c])
-                                # todo ??
                                 cmaxid = uc
                                 cmaxsp = up
                                 cmax=tmp
@@ -165,10 +163,6 @@ class AlgoHandler(object):
                 coll.add(cmaxid)
                 processed.add(cmaxsp)
         return(sequenceDct, coll, species2id)
-
-
-
-
 
     def sl_glob(self, scoringDct = {},sequenceDct = {}):
         print("debug", "sl_glob")
@@ -246,6 +240,7 @@ def getPairwiseAsTuples(avd):
                  listofkeys.append(s)
             pwdict[(f,s)]=  avd[f][s]
     return(pwdict.copy(), listofkeys)
+
 
 def adddyn(listoftuples, pairwisedist, actualdict, allkeys, sequencesdct):
     tmdct = actualdict.copy()
